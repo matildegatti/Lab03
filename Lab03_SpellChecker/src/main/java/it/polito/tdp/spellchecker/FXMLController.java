@@ -69,14 +69,6 @@ public class FXMLController {
 		String lingua=choicelingua.getValue();
 		this.model.loadDictionary(lingua);
 		
-		for(String s:elenco)
-   			for(char c: s.toCharArray()) {
-   				if(!Character.isLetter(c)) {
-   					txtparolesbagliate.setText("Inserire solo lettere!");
-   					return;
-   				}
-    		}
-    	
     	List<String> parole=new LinkedList<String>();  
     	
     	for(String p:elenco) {

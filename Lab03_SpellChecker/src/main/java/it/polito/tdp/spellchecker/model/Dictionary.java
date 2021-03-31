@@ -56,4 +56,55 @@ public class Dictionary {
 		}
 		return richwords;
 	}
+	
+	public List<RichWord> spellCheckTextLinear(List<String> inputTextList){
+		List<RichWord> richwords=new ArrayList<RichWord>();
+		
+		
+		for (String s : inputTextList)  {
+			RichWord rich= new RichWord(s,false);
+			for (String d:dizionario){
+				if (d.equals(s)) {
+					rich.setControllo(true);
+					break;
+				}
+			} 
+			richwords.add(rich);
+		}
+		
+		return richwords;
+	}
+	
+	public List<RichWord> spellCheckTextDichotomic(List<String> inputTextList){
+		List<RichWord> richwords=new ArrayList<RichWord>();
+		
+		for (String s : inputTextList)  {
+			RichWord rich= new RichWord(s,false);
+			List<String> dizio=new LinkedList<String>(dizionario);
+			while(dizio.size()>1) {
+				List<String> fede=new LinkedList<String>();
+				if (s.compareTo(dizionario.get(dizio.size()/2))<0) {
+					fede.addAll(dizio.size()/2, dizio);
+					dizio.removeAll(fede);
+					
+					//for(int i=0; i<dizio.size()/2;i++) 
+						//fede.add(dizio.get(i));
+				} 
+				else if (s.compareTo(dizionario.get(dizio.size()/2))>0) {
+					fede.addAll(dizio.size()/2, dizio);
+					dizio.clear();
+					dizio.addAll(fede);
+				//	for(int i=dizio.size()/2; i<dizio.size(); i++) 
+					//	fede.add(dizio.get(i));
+				} 
+				else {
+					rich.setControllo(true);
+					break;
+				}	
+
+			}
+			richwords.add(rich);
+		}
+		return richwords;
+	}
 }
